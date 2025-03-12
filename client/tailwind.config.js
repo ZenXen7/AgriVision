@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        intero: ["Intero", "sans-serif"],
         sf: ["SFRegular", "sans-serif"],
         sfbold: ["SFProBold", "sans-serif"],
         sfmedium: ["SFProMedium", "sans-serif"],
