@@ -1,10 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./App.{js,ts,tsx}', './components/**/*.{js,ts,tsx}'],
-
-  presets: [require('nativewind/preset')],
+  // NOTE: Update this to include the paths to all of your component files.
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sf: ["SFRegular", "sans-serif"],
+        sfbold: ["SFProBold", "sans-serif"],
+        sfmedium: ["SFProMedium", "sans-serif"],
+      }
+    },
   },
   plugins: [],
-};
+}
