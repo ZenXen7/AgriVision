@@ -39,11 +39,11 @@ export default function Index() {
           
         
           <View className="w-full items-center">
-              <Link href="/signup" asChild>
+              <Link href="/create" asChild>
             <TouchableOpacity className="bg-green-600 w-full rounded-2xl py-4 shadow-md" activeOpacity={0.8}>
               <Text className="text-white font-sfbold text-center text-lg">Get Started</Text>
             </TouchableOpacity>
-      </Link>
+             </Link>
           
           <Link href="/learn" asChild>
           <TouchableOpacity className="mt-4">

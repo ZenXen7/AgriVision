@@ -121,7 +121,7 @@ const Learn = () => {
             Ready to protect your lettuce crops?
           </Text>
           <TouchableOpacity
-            className="bg-green-600 rounded-xl py-4 px-8 shadow-md"
+            className="bg-green-600 rounded-2xl py-4 px-8 shadow-md"
             activeOpacity={0.8}
             onPress={() => router.push('/')}
           >
