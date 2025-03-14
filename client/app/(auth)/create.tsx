@@ -12,13 +12,13 @@ import {
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 const Signup = () => {
   const router = useRouter();
+  const { email, password, setEmail, setPassword } = useAuthStore();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -31,10 +31,9 @@ const Signup = () => {
       return;
     }
     setErrorMessage("");
-    console.log("Create Account Pressed");
-  
-    router.push("/personal"); 
+    router.push("/personal");
   };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView
@@ -43,7 +42,6 @@ const Signup = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView className="flex-1">
-          
             <View className="px-6 pt-4 pb-6">
               <TouchableOpacity onPress={() => router.back()} className="mb-4">
                 <Ionicons name="arrow-back" size={24} color="#16a34a" />
@@ -96,7 +94,7 @@ const Signup = () => {
                 </View>
               </View>
 
-              {[
+              {[ 
                 {
                   label: "Password",
                   value: password,
@@ -164,17 +162,15 @@ const Signup = () => {
                 </Text>
               )}
 
-             
-                <TouchableOpacity
-                  className="bg-green-600 w-full rounded-2xl py-4 shadow-md mt-4"
-                  activeOpacity={0.8}
-                  onPress={handleSignup}
-                >
-                  <Text className="text-white font-sfbold text-center text-lg">
-                    Continue
-                  </Text>
-                </TouchableOpacity>
-             
+              <TouchableOpacity
+                className="bg-green-600 w-full rounded-2xl py-4 shadow-md mt-4"
+                activeOpacity={0.8}
+                onPress={handleSignup}
+              >
+                <Text className="text-white font-sfbold text-center text-lg">
+                  Continue
+                </Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </TouchableWithoutFeedback>
