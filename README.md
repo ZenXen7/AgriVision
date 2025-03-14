@@ -18,13 +18,20 @@ AgriVision is a mobile application that utilizes **deep learning** and **compute
 - **Cloud Storage:** TBD (AWS/GCP/Firebase)  
 - **State Management:** TBD (Context API/Redux/Zustand)  
 
+## 📷 Screenshots  
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/35115f2b-6412-424f-8362-c9ac8c898d98" width="250" alt="AgriVision Screenshot 1"/>  
+  <img src="https://github.com/user-attachments/assets/fa00c470-fa9a-48c8-accf-0c356db67d61" width="250" alt="AgriVision Screenshot 2"/>  
+  <img src="https://github.com/user-attachments/assets/2558198d-739e-477c-bb14-c9c1a4a340ee" width="250" alt="AgriVision Screenshot 3"/>  
+</p>  
+
 ## 📷 How It Works  
 
 1. Capture or upload an image of lettuce leaves.  
 2. AgriVision preprocesses the image and sends it to the trained CNN model.  
 3. The model predicts the disease (if any) and provides recommendations.  
 4. View disease history and insights in the app.  
-
 
 ## 🤖 Model Training  
 
