@@ -9,7 +9,7 @@ app.use(express.json());
 
 const authRoutes = require("./routes/auth");
 
-// Connect to MongoDB
+
 connectDB();
 
 app.use("/auth", authRoutes);

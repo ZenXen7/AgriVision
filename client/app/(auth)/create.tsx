@@ -42,13 +42,13 @@ const Signup = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView className="flex-1">
-            {/* Header */}
+          
             <View className="px-6 pt-4 pb-6">
               <TouchableOpacity onPress={() => router.back()} className="mb-4">
                 <Ionicons name="arrow-back" size={24} color="#16a34a" />
               </TouchableOpacity>
               <View className="py-4 -ml-2">
-                <Ionicons name="person-circle" size={64} color="#16a34a" />
+                <Ionicons name="mail-open-outline" size={64} color="#16a34a" />
               </View>
 
               <Text className="text-3xl font-sfbold text-green-700 mb-2">
