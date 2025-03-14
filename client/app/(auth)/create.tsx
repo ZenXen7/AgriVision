@@ -32,8 +32,9 @@ const Signup = () => {
     }
     setErrorMessage("");
     console.log("Create Account Pressed");
+  
+    router.push("/personal"); 
   };
-
   return (
     <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView
@@ -47,7 +48,7 @@ const Signup = () => {
               <TouchableOpacity onPress={() => router.back()} className="mb-4">
                 <Ionicons name="arrow-back" size={24} color="#16a34a" />
               </TouchableOpacity>
-              <View className="py-4 -ml-2">
+              <View className="py-4 -ml-1">
                 <Ionicons name="mail-open-outline" size={64} color="#16a34a" />
               </View>
 
@@ -163,7 +164,7 @@ const Signup = () => {
                 </Text>
               )}
 
-              <Link href="/personal" asChild>
+             
                 <TouchableOpacity
                   className="bg-green-600 w-full rounded-2xl py-4 shadow-md mt-4"
                   activeOpacity={0.8}
@@ -173,7 +174,7 @@ const Signup = () => {
                     Continue
                   </Text>
                 </TouchableOpacity>
-              </Link>
+             
             </View>
           </ScrollView>
         </TouchableWithoutFeedback>
