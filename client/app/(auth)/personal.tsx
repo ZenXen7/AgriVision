@@ -59,20 +59,20 @@ const Personal = () => {
                 <Ionicons name="arrow-back" size={24} color="#16a34a" />
               </TouchableOpacity>
               <View className="py-4 -ml-2">
-                <Ionicons name="person-circle" size={64} color="#16a34a" />
+                <Ionicons name="person-outline" size={64} color="#16a34a" />
               </View>
 
-              <Text className="text-3xl font-bold text-green-700 mb-2">
+              <Text className="text-3xl font-sfbold text-green-700 mb-2">
                 Personal Information
               </Text>
 
-              <Text className="text-base text-gray-600">
+              <Text className="text-base text-gray-600 font-sfmedium">
                 Fill out your personal information to get started.
               </Text>
             </View>
 
             <View className="px-6 py-4 space-y-4">
-              {/* First Name */}
+             
               <View className="space-y-1">
                 <View
                   className={`w-full px-4 pt-5 pb-2 bg-white rounded-2xl border flex-row items-center mt-2 mb-2 ${
@@ -95,7 +95,7 @@ const Personal = () => {
                     value={firstName}
                     onChangeText={setFirstName}
                     placeholder=""
-                    className="flex-1 text-lg text-black"
+                    className="flex-1 text-lg text-black font-sfmedium"
                     onFocus={() => setFocusedField("First Name")}
                     onBlur={() => setFocusedField(null)}
                     style={{ height: "100%", textAlignVertical: "center", paddingVertical: 0 }}
@@ -126,7 +126,7 @@ const Personal = () => {
                     value={lastName}
                     onChangeText={setLastName}
                     placeholder=""
-                    className="flex-1 text-lg text-black"
+                    className="flex-1 text-lg text-black font-sfmedium"
                     onFocus={() => setFocusedField("Last Name")}
                     onBlur={() => setFocusedField(null)}
                     style={{ height: "100%", textAlignVertical: "center", paddingVertical: 0 }}
@@ -217,7 +217,7 @@ const Personal = () => {
                 activeOpacity={0.8}
                 onPress={() => console.log("Submitted")}
               >
-                <Text className="text-white font-bold text-center text-lg">
+                <Text className="text-white font-sfbold text-center text-lg">
                   Continue
                 </Text>
               </TouchableOpacity>
