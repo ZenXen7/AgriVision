@@ -21,6 +21,7 @@ AgriVision is a mobile application that utilizes **deep learning** and **compute
 ## 📷 Screenshots  
 
 <p align="center">  
+
   <img src="https://github.com/user-attachments/assets/35115f2b-6412-424f-8362-c9ac8c898d98" width="250" alt="AgriVision Screenshot 1"/>  
   <img src="https://github.com/user-attachments/assets/fa00c470-fa9a-48c8-accf-0c356db67d61" width="250" alt="AgriVision Screenshot 2"/>  
   <img src="https://github.com/user-attachments/assets/2558198d-739e-477c-bb14-c9c1a4a340ee" width="250" alt="AgriVision Screenshot 3"/>  

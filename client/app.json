@@ -33,8 +33,13 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
-     
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow AgriVision to access your camera to scan lettuce."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

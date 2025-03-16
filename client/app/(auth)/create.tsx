@@ -171,6 +171,15 @@ const Signup = () => {
                   Continue
                 </Text>
               </TouchableOpacity>
+
+              <View className="flex-row justify-center items-center mt-4">
+                <Text className="text-gray-600 font-sfmedium">
+                  Already have an account?{" "}
+                </Text>
+                <TouchableOpacity onPress={() => router.push("/login")}>
+                  <Text className="text-green-700 font-sfbold">Login</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </TouchableWithoutFeedback>
