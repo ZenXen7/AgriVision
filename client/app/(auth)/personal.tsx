@@ -50,7 +50,7 @@ const Personal = () => {
   }
 
   const handleCreateAccount = async () => {
-    // Validate inputs
+
     if (!firstName.trim()) {
       Alert.alert("Missing Information", "Please enter your first name")
       return

@@ -16,17 +16,44 @@ import { useRouter } from "expo-router";
 import { useAuthStore } from "../../store/authStore";
 
 const Login = () => {
+  const { email, password, setEmail, setPassword, loginUser } = useAuthStore();
   const router = useRouter();
-  const { email, password, setEmail, setPassword } = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    // Add your login logic here
-    setErrorMessage("");
-    router.push("/"); // Or wherever you want to redirect after login
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setErrorMessage("Please fill in all fields");
+      return;
+    }
+
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      const { success, message } = await loginUser();
+
+      if (success) {
+        router.replace("/dashboard");
+      } else {
+        setErrorMessage(message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrorMessage("An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -140,12 +167,15 @@ const Login = () => {
               )}
 
               <TouchableOpacity
-                className="bg-green-600 w-full rounded-2xl py-4 shadow-md mt-4"
+                className={`bg-green-600 w-full rounded-2xl py-4 shadow-md mt-4 ${
+                  isLoading ? "opacity-70" : ""
+                }`}
                 activeOpacity={0.8}
                 onPress={handleLogin}
+                disabled={isLoading}
               >
                 <Text className="text-white font-sfbold text-center text-lg">
-                  Login
+                  {isLoading ? "Logging in..." : "Login"}
                 </Text>
               </TouchableOpacity>
 
