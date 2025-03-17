@@ -109,10 +109,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw new Error(data.message || "Login failed")
       }
 
-      // Set authenticated state and clear sensitive data
+      
       set({ 
         isAuthenticated: true,
-        password: "" // Clear password after successful login
+        password: "" 
       })
 
       return { success: true, message: "Login successful!" }
@@ -125,11 +125,37 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  logoutUser: () => {
-    set({
-      isAuthenticated: false,
-      email: "",
-      password: "",
-    })
+  logoutUser: async () => {
+    try {
+      const response = await fetch("http://192.168.1.2:3000/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Logout failed");
+      }
+
+      set({
+        isAuthenticated: false,
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        birthDate: new Date(),
+      });
+
+      return { success: true, message: "Logged out successfully" };
+    } catch (error: any) {
+      console.error("Logout error:", error);
+      return {
+        success: false,
+        message: error.message || "An error occurred during logout",
+      };
+    }
   },
-}))
+}));
