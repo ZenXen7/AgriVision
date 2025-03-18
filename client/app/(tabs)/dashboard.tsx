@@ -1,11 +1,37 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+
 
 const Dashboard = () => {
   return (
-    <View>
-      <Text>dashboard</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+          <View className="">
+
+
+
+
+          </View>
+
+
+
+      </ScrollView>
+    </SafeAreaView>
+   
   )
 }
 
