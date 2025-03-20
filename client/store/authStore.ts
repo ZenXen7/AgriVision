@@ -14,7 +14,7 @@ interface AuthState {
   setBirthDate: (birthDate: Date) => void
   registerUser: () => Promise<{ success: boolean; message: string }>
   loginUser: () => Promise<{ success: boolean; message: string }>
-  logoutUser: () => void
+  logoutUser: () => Promise<{ success: boolean; message: string }> 
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
