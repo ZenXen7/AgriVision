@@ -34,7 +34,7 @@ const Dashboard = () => {
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView className="flex-1">
        
-        <View className="p-6 rounded-b-3xl mt-5">
+        <View className="p-6  mt-5">
           <Text className="text-5xl font-sfbold text-green-600 ">
             AgriVision
           </Text>
