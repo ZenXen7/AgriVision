@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Image, Dimensions } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -28,6 +28,33 @@ const Dashboard = () => {
       result: "Diseased",
       confidence: "85%",
       image: images.lettuce,
+    },
+  ];
+
+  const tips = [
+    {
+      id: 1,
+      icon: '🌱',
+      title: 'Proper Watering',
+      description: 'Water deeply but infrequently to encourage root growth.'
+    },
+    {
+      id: 2,
+      icon: '☀️',
+      title: 'Sunlight',
+      description: 'Ensure 4-6 hours of direct sunlight daily.'
+    },
+    {
+      id: 3,
+      icon: '🌡️',
+      title: 'Temperature',
+      description: 'Keep between 60-70°F for optimal growth.'
+    },
+    {
+      id: 4,
+      icon: '🦠',
+      title: 'Disease Prevention',
+      description: 'Monitor leaves regularly for spots or discoloration.'
     },
   ];
 
@@ -109,19 +136,33 @@ const Dashboard = () => {
           ))}
         </View>
 
-        <View className="px-6 py-4">
-          <Text className="text-xl font-sfbold text-green-800 mb-4">Tips</Text>
-          <View className="bg-green-50 p-4 rounded-2xl shadow-sm">
-            <Text className="text-base font-sfmedium text-gray-700">
-              🌱 Ensure proper watering and sunlight exposure.
-            </Text>
-            <Text className="text-base font-sfmedium text-gray-700 mt-2">
-              🛠️ Regularly inspect plants for early signs of disease.
-            </Text>
-            <Text className="text-base font-sfmedium text-gray-700 mt-2">
-              🧪 Use AgriVision to monitor plant health frequently.
-            </Text>
-          </View>
+        <View className="py-4">
+          <Text className="text-xl font-sfbold text-green-800 mb-4 px-6">Growing Tips</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            decelerationRate="fast"
+            snapToInterval={Dimensions.get('window').width * 0.85 + 16}
+            snapToAlignment="center"
+            contentContainerStyle={{ paddingHorizontal: 24 }}
+          >
+            {tips.map((tip) => (
+              <View
+                key={tip.id}
+                style={{ width: Dimensions.get('window').width * 0.85 }}
+                className="bg-green-50 p-6 rounded-2xl border-green-700  mr-4"
+              >
+                <Text className="text-5xl mb-2">{tip.icon}</Text>
+                <Text className="text-2xl font-sfbold text-green-800 mb-2">
+                  {tip.title}
+                </Text>
+                <Text className="text-base font-sfmedium text-gray-700">
+                  {tip.description}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>
