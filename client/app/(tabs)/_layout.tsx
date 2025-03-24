@@ -10,7 +10,23 @@ const _layout = () => {
         headerShown: false,
         tabBarActiveTintColor: '#16a34a', // Green color for active tab
         tabBarInactiveTintColor: '#9ca3af', // Gray color for inactive tab
-        tabBarStyle: { backgroundColor: '#ffffff', borderTopWidth: 0 },
+        tabBarStyle: {
+          
+          borderRadius: 0,  // Softer rounding
+          marginHorizontal: 0,
+          paddingTop: 10,
+          height: 100,  // Adjusted height
+          position: 'absolute',
+          bottom: 0,  // Space from the bottom
+          paddingHorizontal: 20, 
+          paddingVertical: 10,  // More padding for a clean layout
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3,
+          borderTopWidth: 1,  // Add a small top border
+        
+      },
         tabBarLabelStyle: { fontSize: 10, fontWeight: '400' },
         tabBarIconStyle: { marginBottom: -2 },
        

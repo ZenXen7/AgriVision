@@ -5,24 +5,30 @@ import { useState, useEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons"
 import * as ImagePicker from "expo-image-picker"
+import { useCameraPermissions } from 'expo-camera';
 import * as Camera from "expo-camera"
 
 const Scan = () => {
   const [image, setImage] = useState<string | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null)
+  const [permission, requestPermission] = useCameraPermissions();
   const [analysisResult, setAnalysisResult] = useState<null | {
     disease: string
     confidence: number
     recommendation: string
   }>(null)
-
-  useEffect(() => {
-    ;(async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync()
-      setHasCameraPermission(status === "granted")
-    })()
-  }, [])
+  
+  const getPermission = async () => {
+    if (!permission?.granted) {
+      await requestPermission();
+    }
+  };
+    useEffect(() => {
+      if (!permission?.granted) {
+        requestPermission();
+      }
+    }, [permission]);
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -85,13 +91,14 @@ const Scan = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white ">
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
       
         <View className="p-6 mt-5 flex-row items-center justify-between">
           <View>
             <Text className="text-5xl font-sfbold text-green-700">Scan</Text>
-            <Text className="text-lg font-sfmedium text-gray-500">AI-powered disease detection</Text>
+            <Text className="text-lg font-sfmedium text-green-800">Capture and analyze lettuce health in real-time.
+            </Text>
           </View>
           
         </View>
@@ -103,7 +110,7 @@ const Scan = () => {
               <MaterialCommunityIcons name="information-outline" size={22} color="#16a34a" />
               <Text className="ml-2 text-lg font-sfmedium text-green-800">How it works</Text>
             </View>
-            <Text className="text-gray-700 font-sf">
+            <Text className="text-green-700 font-sf">
               Our CNN-based model analyzes your lettuce images to detect diseases with high accuracy. Take a clear photo
               of the affected area for best results.
             </Text>
@@ -221,27 +228,29 @@ const Scan = () => {
 
        
         {!image && (
-          <View className=" px-6 pb-6">
-            <Text className="font-sfbold text-xl text-green-600 mb-3">Scanning Tips</Text>
+        <View className="px-6 pb-6">
+          <Text className="font-sfbold text-xl text-green-800 mb-3">Scanning Tips</Text>
 
-            <View className="space-y-3">
-              {[
-                { icon: "sunny-outline", text: "Take photos in good lighting conditions" },
-                { icon: "scan-outline", text: "Focus on the affected area of the lettuce" },
-                { icon: "hand-left-outline", text: "Hold the camera steady for clear images" },
-                { icon: "close-circle-outline", text: "Avoid shadows on the plant surface" },
-
-              ].map((tip, index) => (
-                <View key={index} className="flex-row items-center">
-                  <View className="w-8 h-8 bg-green-50 rounded-full items-center justify-center">
-                    <Ionicons name={tip.icon} size={18} color="#16a34a" />
-                  </View>
-                  <Text className="ml-3 text-gray-700 font-sfmedium">{tip.text}</Text>
+          <View className="space-y-3">
+            {(
+              [
+                { icon: "sunny-outline" as keyof typeof Ionicons.glyphMap, text: "Take photos in good lighting conditions" },
+                { icon: "scan-outline" as keyof typeof Ionicons.glyphMap, text: "Focus on the affected area of the lettuce" },
+                { icon: "hand-left-outline" as keyof typeof Ionicons.glyphMap, text: "Hold the camera steady for clear images" },
+                { icon: "close-circle-outline" as keyof typeof Ionicons.glyphMap, text: "Avoid shadows on the plant surface" },
+              ] as const
+            ).map((tip, index) => (
+              <View key={index} className="flex-row items-center">
+                <View className="w-8 h-8 bg-green-50 rounded-full items-center justify-center">
+                  <Ionicons name={tip.icon} size={18} color="#16a34a" />
                 </View>
-              ))}
-            </View>
+                <Text className="ml-3 text-gray-700 font-sfmedium">{tip.text}</Text>
+              </View>
+            ))}
           </View>
-        )}
+        </View>
+      )}
+
       </ScrollView>
     </SafeAreaView>
   )
