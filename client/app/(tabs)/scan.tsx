@@ -92,7 +92,8 @@ const Scan = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white ">
-      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}
+       contentContainerStyle={{ paddingBottom: 80 }} >
       
         <View className="p-6 mt-5 flex-row items-center justify-between">
           <View>
