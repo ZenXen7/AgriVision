@@ -19,7 +19,7 @@ const Learn = () => {
             <Ionicons name="arrow-back" size={24} color="#16a34a" />
           </TouchableOpacity>
           
-          <Text className="text-3xl font-sfbold text-green-700 mb-2">How AgriVision Works</Text>
+          <Text className="text-3xl font-sfbold text-green-700 mb-2">How Cropnosis Works</Text>
           <Text className="text-base font-sfmedium text-gray-600">
             Discover how our AI technology helps you identify and treat lettuce diseases
           </Text>

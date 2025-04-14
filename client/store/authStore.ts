@@ -7,11 +7,13 @@ interface AuthState {
   lastName: string
   birthDate: Date
   isAuthenticated: boolean
+  isLoading: boolean
   setEmail: (email: string) => void
   setPassword: (password: string) => void
   setFirstName: (firstName: string) => void
   setLastName: (lastName: string) => void
   setBirthDate: (birthDate: Date) => void
+  validateEmail: (email: string) => boolean
   registerUser: () => Promise<{ success: boolean; message: string }>
   loginUser: () => Promise<{ success: boolean; message: string }>
   logoutUser: () => Promise<{ success: boolean; message: string }> 
@@ -24,15 +26,28 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   lastName: "",
   birthDate: new Date(),
   isAuthenticated: false,
+  isLoading: false,
   setEmail: (email) => set({ email }),
   setPassword: (password) => set({ password }),
   setFirstName: (firstName) => set({ firstName }),
   setLastName: (lastName) => set({ lastName }),
   setBirthDate: (birthDate) => set({ birthDate }),
 
+  validateEmail: (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  },
+
   registerUser: async () => {
     try {
-      const { email, password, firstName, lastName, birthDate } = get()
+      const { email, password, firstName, lastName, birthDate, validateEmail } = get()
+      
+      if (!validateEmail(email)) {
+        return {
+          success: false,
+          message: "Please enter a valid email address",
+        }
+      }
 
       if (!email || !password || !firstName || !lastName) {
         return {
@@ -41,12 +56,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         }
       }
 
+      set({ isLoading: true })
+
       const formattedDate = birthDate.toISOString().split("T")[0]
 
-      const response = await fetch("http://192.168.1.2:3000/auth/register", {
+      // Update the URL to match your server address
+      const response = await fetch("http://192.168.1.7:3000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify({
           email,
@@ -60,7 +79,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || "Registration failed")
+        throw new Error(data.error || "Registration failed") // Changed from data.message to data.error
       }
 
       set({
@@ -78,6 +97,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         success: false,
         message: error.message || "An error occurred during registration",
       }
+    } finally {
+      set({ isLoading: false })
     }
   },
 
@@ -92,7 +113,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         }
       }
 
-      const response = await fetch("http://192.168.1.2:3000/auth/login", {
+      set({ isLoading: true })
+
+      const response = await fetch("http://192.168.1.7:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,12 +145,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         success: false,
         message: error.message || "An error occurred during login",
       }
+    } finally {
+      set({ isLoading: false })
     }
   },
 
   logoutUser: async () => {
     try {
-      const response = await fetch("http://192.168.1.2:3000/auth/logout", {
+      const response = await fetch("http://192.168.1.7:3000/auth/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

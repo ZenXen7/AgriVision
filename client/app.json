@@ -37,7 +37,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow AgriVision to access your camera to scan lettuce."
+          "cameraPermission": "Allow Cropnosis to access your camera to scan lettuce."
         }
       ]
     ],

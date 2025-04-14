@@ -14,7 +14,7 @@ export default function Index() {
         <View className="w-full flex justify-between h-full items-center px-6 py-8">
       
           <View className="w-full items-center mt-4">
-            <Text className="text-green-600 font-intero text-6xl mb-2">AgriVision</Text>
+            <Text className="text-green-600 font-intero text-6xl mb-2">Cropnosis</Text>
             <Text className="text-green-700/70 font-sfmedium text-lg">Plant Health Assistant</Text>
           </View>
           
