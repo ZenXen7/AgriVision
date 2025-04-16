@@ -8,12 +8,13 @@ const HOST = "0.0.0.0";
 
 const app = express();
 
-app.use(cors({ 
-  origin: true, 
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-}));
-
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -23,14 +24,17 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 const authRoutes = require("./routes/auth");
+const predictRoutes = require("./routes/predict");
 app.use("/auth", authRoutes);
+app.use("/", predictRoutes);
 
 const startServer = async () => {
   try {
-    await connectDB(); 
+    await connectDB();
     app.listen(PORT, HOST, () => {
       console.log(`✅ Server running at http://${HOST}:${PORT}`);
     });
+
   } catch (error) {
     console.error("❌ Failed to start server:", error);
     process.exit(1);

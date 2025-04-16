@@ -6,7 +6,11 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   try {
     const { email, password, firstName, lastName, birthDate } = req.body;
-    console.log("Received registration request:", { email, firstName, lastName });
+    console.log("Received registration request:", {
+      email,
+      firstName,
+      lastName,
+    });
 
     if (!email || !password || !firstName || !lastName || !birthDate) {
       return res.status(400).json({ error: "All fields are required" });
@@ -30,7 +34,9 @@ router.post("/register", async (req, res) => {
     await newUser.save();
     console.log("User saved successfully");
 
-    res.status(201).json({ message: "User registered successfully", userId: newUser._id });
+    res
+      .status(201)
+      .json({ message: "User registered successfully", userId: newUser._id });
   } catch (err) {
     console.error("Registration error:", err);
     res.status(500).json({ error: err.message || "Server error" });
@@ -61,10 +67,9 @@ router.post("/login", async (req, res) => {
         id: user._id,
         email: user.email,
         firstName: user.firstName,
-        lastName: user.lastName
-      }
+        lastName: user.lastName,
+      },
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
