@@ -1,22 +1,23 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
 interface AuthState {
-  email: string
-  password: string
-  firstName: string
-  lastName: string
-  birthDate: Date
-  isAuthenticated: boolean
-  isLoading: boolean
-  setEmail: (email: string) => void
-  setPassword: (password: string) => void
-  setFirstName: (firstName: string) => void
-  setLastName: (lastName: string) => void
-  setBirthDate: (birthDate: Date) => void
-  validateEmail: (email: string) => boolean
-  registerUser: () => Promise<{ success: boolean; message: string }>
-  loginUser: () => Promise<{ success: boolean; message: string }>
-  logoutUser: () => Promise<{ success: boolean; message: string }> 
+  email: string;
+  password: string;
+
+  firstName: string;
+  lastName: string;
+  birthDate: Date;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  setEmail: (email: string) => void;
+  setPassword: (password: string) => void;
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+  setBirthDate: (birthDate: Date) => void;
+  validateEmail: (email: string) => boolean;
+  registerUser: () => Promise<{ success: boolean; message: string }>;
+  loginUser: () => Promise<{ success: boolean; message: string }>;
+  logoutUser: () => Promise<{ success: boolean; message: string }>;
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -34,119 +35,126 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   setBirthDate: (birthDate) => set({ birthDate }),
 
   validateEmail: (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   },
 
   registerUser: async () => {
     try {
-      const { email, password, firstName, lastName, birthDate, validateEmail } = get()
-      
+      const { email, password, firstName, lastName, birthDate, validateEmail } =
+        get();
+
       if (!validateEmail(email)) {
         return {
           success: false,
           message: "Please enter a valid email address",
-        }
+        };
       }
 
       if (!email || !password || !firstName || !lastName) {
         return {
           success: false,
           message: "Please fill in all required fields",
-        }
+        };
       }
 
-      set({ isLoading: true })
+      set({ isLoading: true });
 
-      const formattedDate = birthDate.toISOString().split("T")[0]
+      const formattedDate = birthDate.toISOString().split("T")[0];
 
       // Update the URL to match your server address
-      const response = await fetch("http://192.168.1.7:3000/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          firstName,
-          lastName,
-          birthDate: formattedDate,
-        }),
-      })
+      const response = await fetch(
+        "http://192.168.1.13:5000/api/auth/register", // change this to "http://<your ip adress>:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            firstName,
+            lastName,
+            birthDate: formattedDate,
+          }),
+        }
+      );
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Registration failed") // Changed from data.message to data.error
+        throw new Error(data.error || "Registration failed"); // Changed from data.message to data.error
       }
 
       set({
         email: "",
         password: "",
+
         firstName: "",
         lastName: "",
         birthDate: new Date(),
-      })
+      });
 
-      return { success: true, message: "Account created successfully!" }
+      return { success: true, message: "Account created successfully!" };
     } catch (error: any) {
-      console.error("Registration error:", error)
+      console.error("Registration error:", error);
       return {
         success: false,
         message: error.message || "An error occurred during registration",
-      }
+      };
     } finally {
-      set({ isLoading: false })
+      set({ isLoading: false });
     }
   },
 
   loginUser: async () => {
     try {
-      const { email, password } = get()
+      const { email, password } = get();
 
       if (!email || !password) {
         return {
           success: false,
           message: "Please fill in all fields",
-        }
+        };
       }
 
-      set({ isLoading: true })
+      set({ isLoading: true });
 
-      const response = await fetch("http://192.168.1.7:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      })
+      const response = await fetch(
+        "http://192.168.1.13:5000/api/auth/login", // change this to "http://<your ip adress>:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Login failed")
+        throw new Error(data.message || "Login failed");
       }
 
-      
-      set({ 
+      set({
         isAuthenticated: true,
-        password: "" 
-      })
+        password: "",
+      });
 
-      return { success: true, message: "Login successful!" }
+      return { success: true, message: "Login successful!" };
     } catch (error: any) {
-      console.error("Login error:", error)
+      console.error("Login error:", error);
       return {
         success: false,
         message: error.message || "An error occurred during login",
-      }
+      };
     } finally {
-      set({ isLoading: false })
+      set({ isLoading: false });
     }
   },
 

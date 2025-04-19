@@ -6,10 +6,20 @@ import numpy as np
 import os
 from io import BytesIO
 
+from flask_sqlalchemy import SQLAlchemy
+from auth.routes import auth_bp
+from auth.models import db
 
-# Load the model
+from flask_cors import CORS
+
+
+
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+CORS(app)
 
 model = load_model('finalcropnoses.keras')
 
@@ -49,6 +59,13 @@ def predict():
 
 
 
+db.init_app(app)
+
+
+
+
+app.register_blueprint(auth_bp, url_prefix='/api/auth')
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

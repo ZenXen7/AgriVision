@@ -6,9 +6,12 @@ charset-normalizer==3.4.1
 click==8.1.8
 colorama==0.4.6
 Flask==3.1.0
+flask-cors==5.0.1
+Flask-SQLAlchemy==3.1.1
 flatbuffers==25.2.10
 gast==0.6.0
 google-pasta==0.2.0
+greenlet==3.2.0
 grpcio==1.71.0
 h5py==3.13.0
 idna==3.10
@@ -35,6 +38,7 @@ pytz==2025.2
 requests==2.32.3
 rich==14.0.0
 six==1.17.0
+SQLAlchemy==2.0.40
 tensorboard==2.19.0
 tensorboard-data-server==0.7.2
 tensorflow==2.19.0

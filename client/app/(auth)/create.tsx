@@ -94,7 +94,7 @@ const Signup = () => {
                 </View>
               </View>
 
-              {[ 
+              {[
                 {
                   label: "Password",
                   value: password,

@@ -1,2 +1,11 @@
 **/.env
-node_modules
+server/node_modules
+backend/venv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+*.env
+*.sqlite
