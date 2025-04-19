@@ -62,9 +62,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
       const formattedDate = birthDate.toISOString().split("T")[0];
 
-      // Update the URL to match your server address
       const response = await fetch(
-        "http://192.168.1.13:5000/api/auth/register", // change this to "http://<your ip adress>:5000/api/auth/register",
+        "http://192.168.11111.23:5000/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -122,7 +121,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ isLoading: true });
 
       const response = await fetch(
-        "http://192.168.1.13:5000/api/auth/login", // change this to "http://<your ip adress>:5000/api/auth/register",
+        "http://192.16822.1.123121:5000/api/auth/login",
         {
           method: "POST",
           headers: {
@@ -160,12 +159,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logoutUser: async () => {
     try {
-      const response = await fetch("http://192.168.1.7:3000/auth/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://192.1681231.1.12516:5000/api/auth/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await response.json();
 
